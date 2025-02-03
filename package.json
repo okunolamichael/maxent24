@@ -1,5 +1,5 @@
 {
-  "name": "my-react-app",
+  "name": "maxent24",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,8 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@alan-ai/alan-sdk-web": "^1.8.76",
+    "@mui/icons-material": "^6.4.2",
+    "@mui/material": "^6.4.2",
+    "@mui/styles": "^6.4.2",
+    "@reduxjs/toolkit": "^2.5.1",
+    "axios": "^1.7.9",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
