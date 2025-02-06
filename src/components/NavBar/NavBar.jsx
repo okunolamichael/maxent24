@@ -1,6 +1,6 @@
-import React from 'react'
+import {React, useState} from 'react'
 import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } from '@mui/material';
-import { Menu, AccountCircle, Brightness4, Brightness7 } from '@mui/icons-material';
+import { Menu, AccountCircle, Brightness4, Brightness7, MobileOffSharp } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import {useTheme} from '@mui/material/styles';
 import useStyles from './styles'
@@ -11,11 +11,15 @@ const NavBar = () => {
     const isMobile = useMediaQuery('(max-width:600px)');
     const theme = useTheme();
     const isAuthenticated = true;
+    const [mobileOpen, setmobileOpen] = useState(false);
 
   return (
     <>
       <AppBar position='fixed'>
         <Toolbar className={classes.toolbar}>
+
+{/* menu, theme and search */}
+
             {isMobile && (
                 <IconButton 
                     color='inherit'
@@ -32,6 +36,8 @@ const NavBar = () => {
               {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
             </IconButton>
             {!isMobile && 'Search...'}
+
+{/* movie profile or login */}
 
             <div>
               {!isAuthenticated ? (
@@ -58,6 +64,67 @@ const NavBar = () => {
             {isMobile && 'Search...'}
         </Toolbar>
       </AppBar>
+
+{/* sidebar or drawer */}
+
+      <div>
+        <nav className={classes.drawer}>
+          {isMobile ? (
+            <Drawer
+              variant='temporary'
+              anchor='left'
+              open={mobileOpen}
+              onClose={() => {}}
+              ModalProps={{ keepMounted: true }}
+              className={classes.drawerBackground}
+              classes={{ paper: classes.drawerPaper }}
+            >
+              <Sidebar setmobileOpen={setmobileOpen} />
+              
+              <div className={classes.drawerContainer}>
+                <Button 
+                  color='inherit'
+                  component={Link}
+                  to='/'
+                  className={classes.linkButton}
+                  onClick={() => {}}
+                >
+                  Home
+                </Button>
+                <Button 
+                  color='inherit'
+                  component={Link}
+                  to='/movies'
+                  className={classes.linkButton}
+                  onClick={() => {}}
+                >
+                  Movies
+                </Button>
+                <Button 
+                  color='inherit'
+                  component={Link}
+                  to='/tv-shows'
+                  className={classes.linkButton}
+                  onClick={() => {}}
+                >
+                  TV Shows
+                </Button>
+                <Button 
+                  color='inherit'
+                  component={Link}
+                  to='/favorites'
+                  className={classes.linkButton}
+                  onClick={() => {}}
+                >
+                  Favorites
+                </Button>
+              </div>
+            </Drawer>
+          ) : (
+            <Drawer></Drawer>
+          )}
+        </nav>
+      </div>
     </>
   )
 }
