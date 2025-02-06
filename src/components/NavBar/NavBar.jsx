@@ -3,7 +3,8 @@ import { AppBar, IconButton, Toolbar, Drawer, Button, Avatar, useMediaQuery } fr
 import { Menu, AccountCircle, Brightness4, Brightness7, MobileOffSharp } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import {useTheme} from '@mui/material/styles';
-import useStyles from './styles'
+import useStyles from './styles';
+import Sidebar from '../Sidebar/Sidebar';
 
 const NavBar = () => {
 
@@ -76,11 +77,10 @@ const NavBar = () => {
               open={mobileOpen}
               onClose={() => {}}
               ModalProps={{ keepMounted: true }}
-              className={classes.drawerBackground}
               classes={{ paper: classes.drawerPaper }}
             >
               <Sidebar setmobileOpen={setmobileOpen} />
-              
+
               <div className={classes.drawerContainer}>
                 <Button 
                   color='inherit'
@@ -121,7 +121,13 @@ const NavBar = () => {
               </div>
             </Drawer>
           ) : (
-            <Drawer></Drawer>
+            <Drawer
+              classes={{ paper: classes.drawerPaper }}
+              variant='permanent'
+              open
+            >
+              <Sidebar setmobileOpen={setmobileOpen} />
+            </Drawer>
           )}
         </nav>
       </div>
