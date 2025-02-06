@@ -26,7 +26,8 @@ const NavBar = () => {
                     color='inherit'
                     edge='start'
                     style={{ outline: 'none' }}
-                    onClick={() => {}}
+                  // opening the menu callback function
+                    onClick={() => setmobileOpen((prevMobileOpen) => !prevMobileOpen)}
                     className={classes.menuButton}
                 >
                     <Menu />
@@ -75,10 +76,11 @@ const NavBar = () => {
               variant='temporary'
               anchor='left'
               open={mobileOpen}
-              onClose={() => {}}
+            // closing the menu callback function
+              onClose={() => setmobileOpen((previousMobileOpen) => !previousMobileOpen)}
               ModalProps={{ keepMounted: true }}
               classes={{ paper: classes.drawerPaper }}
-            >
+              >
               <Sidebar setmobileOpen={setmobileOpen} />
 
               <div className={classes.drawerContainer}>
