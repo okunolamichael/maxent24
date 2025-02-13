@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
+
+import React from 'react';
 import {Box, CircularProgress, useMediaQuery, Typography} from '@mui/material';
 import { useSelector } from 'react-redux';
 
-import { useGetMoviesQuery } from '../../services/OMDB';
+// import { useGetMoviesQuery } from '../../services/OMDB';
 
 const Movies = () => {
 
-  const {data} = useGetMoviesQuery();
-  console.log(data);
+  // const {data} = useGetMoviesQuery();
+  // console.log(data);
 
   return (
     <div>

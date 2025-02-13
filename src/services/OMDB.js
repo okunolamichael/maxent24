@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
+/*global process */
+/*eslint no-undef: "error"*/
 const omdbApiKey = process.env.REACT_APP_OMDB_KEY;
 const page = 1;
 
