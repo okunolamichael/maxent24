@@ -3,7 +3,7 @@ import React from 'react';
 import {Box, CircularProgress, useMediaQuery, Typography} from '@mui/material';
 import { useSelector } from 'react-redux';
 
-// import { useGetMoviesQuery } from '../../services/OMDB';
+import { useGetMoviesQuery } from '../../services/OMDB';
 
 const Movies = () => {
 
