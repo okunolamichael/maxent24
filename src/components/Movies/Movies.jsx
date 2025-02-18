@@ -4,15 +4,58 @@ import {Box, CircularProgress, useMediaQuery, Typography} from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { useGetMoviesQuery } from '../../services/OMDB';
+import MovieList from '../MovieList/MovieList';
 
 const Movies = () => {
 
-  // const {data} = useGetMoviesQuery();
-  // console.log(data);
+  const {data, error, isLoading} = useGetMoviesQuery();
+
+  if(isLoading) {
+    return (
+      <Box display="flex" justifyContent="center">
+        <CircularProgress size="4rem" />
+      </Box>
+    );
+  }
+
+  // if(!data.results.length) {
+  //   return (
+  //     <Box display="flex" alignItems="center" mt="20px">
+  //       <Typography variant="h4">
+  //         No movies found.
+  //         <br />
+  //         Please try again later.
+  //       </Typography>
+  //     </Box>
+  //   );
+  // }
+
+  if (data && data.results && data.results.length === 0) {
+    return (
+      <Box display="flex" alignItems="center" mt="20px">
+         <Typography variant="h4">
+           No movies found.
+           <br />
+           Please try again later.
+         </Typography>
+       </Box>
+    )
+  }
+    
+
+  if (error) return 'An error has occurred.';
+
+  if (data && data.results) {
+    return (
+      <div>
+        <MovieList movies={data.results}/>
+      </div>
+    )
+  }
 
   return (
     <div>
-      <h1>Movies</h1>
+      <MovieList movies={data}/>
     </div>
   )
 }
