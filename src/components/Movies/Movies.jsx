@@ -1,63 +1,63 @@
+import React, { useEffect, useState } from 'react';
+// import Search from './components/Search';
 
-import React from 'react';
-import {Box, CircularProgress, useMediaQuery, Typography} from '@mui/material';
-import { useSelector } from 'react-redux';
+const API_BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-import { useGetMoviesQuery } from '../../services/OMDB';
-import MovieList from '../MovieList/MovieList';
+const API_OPTIONS = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: `Bearer ${API_KEY}`,
+  },
+};
 
 const Movies = () => {
+  // const [searchTerm, setSearchTerm] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const {data, error, isLoading} = useGetMoviesQuery();
+  const fetchMovies = async () => {
+    try {
+      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const response = await fetch(endpoint, API_OPTIONS);
 
-  if(isLoading) {
-    return (
-      <Box display="flex" justifyContent="center">
-        <CircularProgress size="4rem" />
-      </Box>
-    );
-  }
+      if (!response.ok) {
+        throw new Error('Failed to fetch movies');
+      }
 
-  // if(!data.results.length) {
-  //   return (
-  //     <Box display="flex" alignItems="center" mt="20px">
-  //       <Typography variant="h4">
-  //         No movies found.
-  //         <br />
-  //         Please try again later.
-  //       </Typography>
-  //     </Box>
-  //   );
-  // }
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(`Error fetching movies: ${error}`);
+      setErrorMessage('Error fetching movies. Please try again later.');
+    }
+  };
 
-  if (data && data.results && data.results.length === 0) {
-    return (
-      <Box display="flex" alignItems="center" mt="20px">
-         <Typography variant="h4">
-           No movies found.
-           <br />
-           Please try again later.
-         </Typography>
-       </Box>
-    )
-  }
-    
-
-  if (error) return 'An error has occurred.';
-
-  if (data && data.results) {
-    return (
-      <div>
-        <MovieList movies={data.results}/>
-      </div>
-    )
-  }
+  useEffect(() => {
+    fetchMovies(); // Fixed typo: "fatchMovies" -> "fetchMovies"
+  }, []); // Removed "deps" since it was undefined; empty array means run once on mount
 
   return (
-    <div>
-      <MovieList movies={data}/>
-    </div>
-  )
-}
+    <main>
+      <div className="pattern" />
 
-export default Movies
+      <div className="wrapper">
+        <header>
+          <h1>
+            <img src="./MAXENT24_white.png" alt="" className="w-64" />
+            <img src="hero-img.png" alt="" />
+            Find <span className="text-gradient">Movie</span> Youll Enjoy Without the Hassle
+          </h1>
+          {/* <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> */}
+        </header>
+
+        <section>
+          <h2>All Movies</h2>
+          {errorMessage && <p className="error">{errorMessage}</p>}
+        </section>
+      </div>
+    </main>
+  );
+};
+
+export default Movies;
